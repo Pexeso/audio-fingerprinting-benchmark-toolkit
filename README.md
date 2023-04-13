@@ -37,7 +37,7 @@ and the segment-level evaluation for matchers that report also the matching rang
 ### Data Files
 
 The following datasets of various sizes were generated from [FMA dataset](https://github.com/mdeff/fma) using the audios with permissive licenses.
-Te provided datasets contain reference and query audio files created using artificially applied audio modifications and distortions.
+The provided datasets contain reference and query audio files created using artificially applied audio modifications and distortions.
 
 | Size   | Difficulty | File                                           | Size    | Query chunks |
 | ------ | ---------- | ---------------------------------------------- | ------: | -----------: |
@@ -275,5 +275,5 @@ This is done by the script `symlink_reference_audios.py`.
 
 Finally, the contents of the data files is zipped into one archive.
 
-All required steps starting with [Generating the Query Audios](#generating-the-query-audios) are performed by the script `generate_audio_benchmark_datasets.sh`,
+All required steps starting with [Generating the Query Audios](#generating-the-query-audios) are performed by the script `generate_audio_benchmark_datasets.sh`.
 It was used to create the provided [Data Files](#data-files).
