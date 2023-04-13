@@ -1,0 +1,39 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    width="400px" height="120px"
+    viewBox="-5 -4 80 28" preserveAspectRatio="none">
+    <g>
+        <line x1="0" y1="0" x2="70" y2="0" stroke-width="0.50" stroke="#000"></line>
+        <line x1="0" y1="10" x2="65" y2="10" stroke-width="0.50" stroke="#000"></line>
+        <line x1="0" y1="20" x2="60" y2="20" stroke-width="0.50" stroke="#000"></line>
+    </g>
+    <g>
+        <polygon points="15,0, 20,20, 45,20, 40,0"
+                 stroke-width="0.2" stroke="#0080ff" fill="none">
+        </polygon>
+        <polygon points="15,0, 20,20, 45,20, 40,0"
+                 fill="#0080ff" fill-opacity="0.263">
+        </polygon>
+        <polygon points="30,10, 33,20, 51,20, 45,10"
+                 stroke-width="0.2" stroke="#ff0000" fill="none">
+        </polygon>
+        <polygon points="30,10, 33,20, 51,20, 45,10"
+                 fill="#ff0000" fill-opacity="0.263">
+        </polygon>
+    </g>
+    <g>
+        <text x="-1" y="0" font-family="sans-serif" font-size="3" dominant-baseline="central" style="text-anchor: end; ">R1</text>
+        <text x="-1" y="10" font-family="sans-serif" font-size="3" dominant-baseline="central" style="text-anchor: end; ">R2</text>
+        <text x="-1" y="20" font-family="sans-serif" font-size="3" dominant-baseline="central" style="text-anchor: end; ">Q</text>
+        <text x="13" y="-2" font-family="sans-serif" font-size="3" dominant-baseline="central" style="text-anchor: start; ">15</text>
+        <text x="38" y="-2" font-family="sans-serif" font-size="3" dominant-baseline="central" style="text-anchor: start; ">40</text>
+        <text x="68" y="-2" font-family="sans-serif" font-size="3" dominant-baseline="central" style="text-anchor: start; ">70</text>
+        <text x="28" y="8" font-family="sans-serif" font-size="3" dominant-baseline="central" style="text-anchor: start; ">30</text>
+        <text x="43" y="8" font-family="sans-serif" font-size="3" dominant-baseline="central" style="text-anchor: start; ">45</text>
+        <text x="63" y="8" font-family="sans-serif" font-size="3" dominant-baseline="central" style="text-anchor: start; ">65</text>
+        <text x="18" y="22" font-family="sans-serif" font-size="3" dominant-baseline="central" style="text-anchor: start; ">20</text>
+        <text x="31" y="22" font-family="sans-serif" font-size="3" dominant-baseline="central" style="text-anchor: start; ">33</text>
+        <text x="43" y="22" font-family="sans-serif" font-size="3" dominant-baseline="central" style="text-anchor: start; ">45</text>
+        <text x="49" y="22" font-family="sans-serif" font-size="3" dominant-baseline="central" style="text-anchor: start; ">51</text>
+        <text x="58" y="22" font-family="sans-serif" font-size="3" dominant-baseline="central" style="text-anchor: start; ">60</text>
+    </g>
+</svg>
