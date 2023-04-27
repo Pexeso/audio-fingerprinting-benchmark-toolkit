@@ -39,17 +39,17 @@ and the segment-level evaluation for matchers that report also the matching rang
 The following datasets of various sizes were generated from [FMA dataset](https://github.com/mdeff/fma) using the audios with permissive licenses.
 The provided datasets contain reference and query audio files created using artificially applied audio modifications and distortions.
 
-| Size   | Difficulty | File                                           | Size    | Query chunks |
-| ------ | ---------- | ---------------------------------------------- | ------: | -----------: |
-| small  | easy       | [afb_easy_small.zip](afb_easy_small.zip)       | 695 MiB |   100        |
-| small  | medium     | [afb_medium_small.zip](afb_medium_small.zip)   | 6.9 GiB |  1000        |
-| small  | hard       | [afb_hard_small.zip](afb_hard_small.zip)       |  69 GiB | 20000        |
-| medium | easy       | [afb_easy_medium.zip](afb_easy_medium.zip)     | 695 MiB |   100        |
-| medium | medium     | [afb_medium_medium.zip](afb_medium_medium.zip) | 6.9 GiB |  1000        |
-| medium | hard       | [afb_hard_medium.zip](afb_hard_medium.zip)     |  69 GiB | 20000        |
-| large  | easy       | [afb_easy_large.zip](afb_easy_large.zip)       | 695 MiB |   100        |
-| large  | medium     | [afb_medium_large.zip](afb_medium_large.zip)   | 6.9 GiB |  1000        |
-| large  | hard       | [afb_hard_large.zip](afb_hard_large.zip)       |  69 GiB | 20000        |
+| Size   | Difficulty | File                                                                                                                                    | Size    | Query chunks | Query audios | Reference audios |
+| ------ | ---------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------: | -----------: | -----------: | ---------------: |
+| small  | easy       | [pexafb_easy_small.zip](https://pexafbtpublic.blob.core.windows.net/audio-fingerprinting-benchmark-toolkit/pexafb_easy_small.zip)       | 657 MiB |          100 |           22 |               99 |
+| small  | medium     | [pexafb_medium_small.zip](https://pexafbtpublic.blob.core.windows.net/audio-fingerprinting-benchmark-toolkit/pexafb_medium_small.zip)   | 717 MiB |          100 |           27 |              100 |
+| small  | hard       | [pexafb_hard_small.zip](https://pexafbtpublic.blob.core.windows.net/audio-fingerprinting-benchmark-toolkit/pexafb_hard_small.zip)       | 630 MiB |          100 |           22 |               99 |
+| medium | easy       | [pexafb_easy_medium.zip](https://pexafbtpublic.blob.core.windows.net/audio-fingerprinting-benchmark-toolkit/pexafb_easy_medium.zip)     | 6.8 GiB |         1000 |          221 |              960 |
+| medium | medium     | [pexafb_medium_medium.zip](https://pexafbtpublic.blob.core.windows.net/audio-fingerprinting-benchmark-toolkit/pexafb_medium_medium.zip) | 7.0 GiB |         1000 |          220 |              950 |
+| medium | hard       | [pexafb_hard_medium.zip](https://pexafbtpublic.blob.core.windows.net/audio-fingerprinting-benchmark-toolkit/pexafb_hard_medium.zip)     | 7.2 GiB |         1000 |          219 |              953 |
+| large  | easy       | [pexafb_easy_large.zip](https://pexafbtpublic.blob.core.windows.net/audio-fingerprinting-benchmark-toolkit/pexafb_easy_large.zip)       |  69 GiB |        20000 |         4491 |             9004 |
+| large  | medium     | [pexafb_medium_large.zip](https://pexafbtpublic.blob.core.windows.net/audio-fingerprinting-benchmark-toolkit/pexafb_medium_large.zip)   |  69 GiB |        20000 |         4360 |             8998 |
+| large  | hard       | [pexafb_hard_large.zip](https://pexafbtpublic.blob.core.windows.net/audio-fingerprinting-benchmark-toolkit/pexafb_hard_large.zip)       |  69 GiB |        20000 |         4400 |             9044 |
 
 The contents of each of these archives:
 - `fma_tracks.csv` - FMA tracks with suitable licenses, the reference audios were randomly chosen from them
