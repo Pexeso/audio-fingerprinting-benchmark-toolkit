@@ -46,8 +46,9 @@ def get_track_id_from_file_name(fn):
     """
     Get the track ID (the base file name without known extensions) from the file name.
     """
-    known_exts = {'.aac', '.flac', '.m4a', '.mp3', '.ogg', '.opus', '.vorbis', '.wav', '.wma', '.avi', '.flv', '.mkv',
-                  '.mov', '.mp4', '.mpg', '.wmv', '.csv', '.json', '.msgpack', '.txt'}
+    known_exts = {'.aac', '.flac', '.m4a', '.mp3', '.ogg', '.opus', '.vorbis', '.wav', '.wma',  # audio
+                  '.avi', '.flv', '.mkv', '.mov', '.mp4', '.mpg', '.wmv',  # video
+                  '.csv', '.json', '.msgpack', '.txt'}  # data
 
     track_id = os.path.basename(fn)
     while True:
