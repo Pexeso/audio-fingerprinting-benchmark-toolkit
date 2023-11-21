@@ -36,10 +36,8 @@ def main():
     args = parser.parse_args()
 
     # set of allowed licenses
-    licenses = set(['by-sa', 'by', 'cc-zero', 'publicdomain',
-                    'http://artlibre.org/licence/lal/en',
-                    'http://creativecommons.org/licenses/sampling+/1.0/',
-                   ])
+    licenses = {'by-sa', 'by', 'cc-zero', 'publicdomain', 'http://artlibre.org/licence/lal/en',
+                'http://creativecommons.org/licenses/sampling+/1.0/'}
 
     output_data = []
 
@@ -48,10 +46,10 @@ def main():
         reader = csv.DictReader(fr, delimiter=',')
         for row in reader:
             # check the license
-            licens = os.path.splitext(os.path.basename(row['license_image_file_large']))[0]
-            if not licens:
-                licens = row['license_url']
-            if licens not in licenses:
+            lic = os.path.splitext(os.path.basename(row['license_image_file_large']))[0]
+            if not lic:
+                lic = row['license_url']
+            if lic not in licenses:
                 continue
 
             # check that the track file exists

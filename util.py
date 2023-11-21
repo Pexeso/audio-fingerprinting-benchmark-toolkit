@@ -23,7 +23,8 @@ def get_track_duration(fn):
     # Simple "ffprobe -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 $fn" does not work well
     # for media files with Variable Bit Rate.
     # So we are reading the timestamp and duration of the last packet.
-    args = ['ffprobe', '-v', 'error', '-select_streams', 'a', '-show_entries', 'packet=pts_time:packet=duration_time', '-of', 'default=noprint_wrappers=1:nokey=1', fn]
+    args = ['ffprobe', '-v', 'error', '-select_streams', 'a', '-show_entries', 'packet=pts_time:packet=duration_time',
+            '-of', 'default=noprint_wrappers=1:nokey=1', fn]
     p = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if p.returncode != 0:
         print(f'{fn}: ffprobe failed!', file=sys.stderr)
@@ -35,7 +36,7 @@ def get_track_duration(fn):
     try:
         lines = p.stdout.decode().splitlines()[-2:]  # PTS and duration of the last packet (in seconds)
         return round(float(lines[0]) + float(lines[1]), 3)
-    except BaseException as e:
+    except BaseException:
         print(f'{fn}: invalid output of ffprobe!', file=sys.stderr)
         print('STDOUT:\n', p.stdout.decode(), file=sys.stderr)
         return None
@@ -45,10 +46,8 @@ def get_track_id_from_file_name(fn):
     """
     Get the track ID (the base file name without known extensions) from the file name.
     """
-    known_exts = set(['.aac', '.flac', '.m4a', '.mp3', '.ogg', '.opus', '.vorbis', '.wav', '.wma',
-                      '.avi', '.flv', '.mkv', '.mov', '.mp4', '.mpg', '.wmv',
-                      '.csv', '.json', '.msgpack', '.txt',
-                     ])
+    known_exts = {'.aac', '.flac', '.m4a', '.mp3', '.ogg', '.opus', '.vorbis', '.wav', '.wma', '.avi', '.flv', '.mkv',
+                  '.mov', '.mp4', '.mpg', '.wmv', '.csv', '.json', '.msgpack', '.txt'}
 
     track_id = os.path.basename(fn)
     while True:
@@ -65,7 +64,7 @@ def pitch_scale_to_cents(scale):
     """
     Convert pitch scale to cents (100 cents = 1 semitone, 12 semitones = 1 octave).
     """
-    return (1200 * math.log(scale) / math.log(2))
+    return 1200 * math.log(scale) / math.log(2)
 
 
 def tempo_scale_to_per_cent(scale):

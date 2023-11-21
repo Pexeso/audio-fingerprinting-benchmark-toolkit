@@ -221,14 +221,12 @@ class BaseResults(ABC):
         """
         pass
 
-
     @staticmethod
     def write_header(writer):
         """
         Write the header of a CSV table.
         """
         writer.writerow(['recall', 'precision', 'f_score', 'tp', 'up', 'fp', 'fn', 'query_id', 'reference_id', 'tags'])
-
 
     @abstractmethod
     def write_row(self, writer, query_id='', reference_id=''):
@@ -244,7 +242,6 @@ class RecallPrecisionResults(BaseResults):
     """
 
     def __init__(self):
-        """ Constructor. """
         super().__init__()
 
         self._recalls = []  # list of recalls
@@ -252,16 +249,17 @@ class RecallPrecisionResults(BaseResults):
 
         self._tags = set()
 
-
-    def add(self, recall, precision, tags=set()):
+    def add(self, recall, precision, tags=None):
         """
         Add the result.
         """
+        if tags is None:
+            tags = set()
+
         self._recalls.append(recall)
         self._precisions.append(precision)
 
         self._tags.update(tags)
-
 
     def get(self):
         """
@@ -271,7 +269,6 @@ class RecallPrecisionResults(BaseResults):
         precision = sum(self._precisions) / len(self._precisions) if self._precisions else 1
         f_score = calculate_f_score(recall, precision)
         return recall, precision, f_score
-
 
     def _format_tags(self, name):
         if self._tags:
@@ -285,7 +282,6 @@ class RecallPrecisionResults(BaseResults):
 
         return ''
 
-
     def print(self, name):
         """
         Print the results with the name.
@@ -293,7 +289,6 @@ class RecallPrecisionResults(BaseResults):
         recall, precision, f_score = self.get()
         tags = self._format_tags(name)
         print(f'R {100 * recall:6.2f}  P {100 * precision:6.2f}  F {100 * f_score:6.2f}  {name}{tags}')
-
 
     def write_row(self, writer, query_id='', reference_id=''):
         recall, precision, f_score = self.get()
@@ -308,7 +303,6 @@ class PositivesNegativesResults(RecallPrecisionResults):
     """
 
     def __init__(self):
-        """ Constructor. """
         super().__init__()
 
         self._tp = 0  # True Positives
@@ -316,11 +310,13 @@ class PositivesNegativesResults(RecallPrecisionResults):
         self._fp = 0  # False Positives
         self._fn = 0  # False Negatives
 
-
-    def add(self, tp, up, fp, fn, tags=set()):
+    def add(self, tp, up, fp, fn, tags=None):
         """
         Add the result.
         """
+        if tags is None:
+            tags = set()
+
         recall = tp / (tp + fn) if tp + fn > 0 else 0
         precision = tp / (tp + fp) if tp + fp > 0 else 1
         super().add(recall, precision, tags)
@@ -330,7 +326,6 @@ class PositivesNegativesResults(RecallPrecisionResults):
         self._fp += fp
         self._fn += fn
 
-
     def get(self):
         """
         Get the overall results.
@@ -338,16 +333,14 @@ class PositivesNegativesResults(RecallPrecisionResults):
         recall, precision, f_score = super().get()
         return recall, precision, f_score, self._tp, self._up, self._fp, self._fn
 
-
     def print(self, name):
         """
         Print the results with the name.
         """
         recall, precision, f_score, tp, up, fp, fn = self.get()
         tags = self._format_tags(name)
-        print(
-            f'R {100 * recall:6.2f}  P {100 * precision:6.2f}  F {100 * f_score:6.2f}  TP {tp:6}  UP {up:6}  FP {fp:6}  FN {fn:6}  {name}{tags}')
-
+        print(f'R {100 * recall:6.2f}  P {100 * precision:6.2f}  F {100 * f_score:6.2f}  '
+              f'TP {tp:6}  UP {up:6}  FP {fp:6}  FN {fn:6}  {name}{tags}')
 
     def write_row(self, writer, query_id='', reference_id=''):
         recall, precision, f_score, tp, up, fp, fn = self.get()
@@ -379,7 +372,6 @@ class BaseEvaluator(ABC):
             if pair not in matches:
                 self._evaluate_pair(pair, annotations[pair], [])
 
-
     @abstractmethod
     def _evaluate_pair(self, pair, annotation, match):
         """
@@ -391,7 +383,6 @@ class BaseEvaluator(ABC):
             match: match list of matched segments
         """
         pass
-
 
     def output_results(self, title, fw=None):
         """
@@ -438,14 +429,12 @@ class TrackEvaluator(BaseEvaluator):
     """
 
     def __init__(self):
-        """ Constructor. """
         super().__init__()
 
         self._pair_results = collections.defaultdict(PositivesNegativesResults)
         self._ref_results = collections.defaultdict(PositivesNegativesResults)
         self._tag_results = collections.defaultdict(PositivesNegativesResults)
         self._all_results = PositivesNegativesResults()
-
 
     def _evaluate_pair(self, pair, annotation, match):
         """
@@ -480,14 +469,12 @@ class BoundingBoxSegmentEvaluator(BaseEvaluator):
     """
 
     def __init__(self):
-        """ Constructor. """
         super().__init__()
 
         self._pair_results = collections.defaultdict(RecallPrecisionResults)
         self._ref_results = collections.defaultdict(RecallPrecisionResults)
         self._tag_results = collections.defaultdict(RecallPrecisionResults)
         self._all_results = RecallPrecisionResults()
-
 
     def _evaluate_pair(self, pair, annotation, match):
         """
@@ -568,14 +555,12 @@ class LengthSegmentEvaluator(BaseEvaluator):
     """
 
     def __init__(self):
-        """ Constructor. """
         super().__init__()
 
         self._pair_results = collections.defaultdict(PositivesNegativesResults)
         self._ref_results = collections.defaultdict(PositivesNegativesResults)
         self._tag_results = collections.defaultdict(PositivesNegativesResults)
         self._all_results = PositivesNegativesResults()
-
 
     def _evaluate_pair(self, pair, annotation, match):
         """
@@ -647,13 +632,15 @@ class LengthSegmentEvaluator(BaseEvaluator):
                     overlap_reference_union |= overlaps[m][a][0]
                 overlap_query_only_union |= overlaps[m][a][1]
 
-            # True Positives + Unknown Positives = maximum of the full overlap in the reference and the partial overlap in the query only
+            # True Positives + Unknown Positives = maximum of the full overlap in the reference and the partial overlap
+            # in the query only
             overlap_reference_length = get_interval_length(overlap_reference_union)
             overlap_query_only_length = round_towards_target(get_interval_length(overlap_query_only_union) * tempo,
                                                              match_reference_length)
             overlap_length = max(overlap_reference_length, overlap_query_only_length)
 
-            # Unknown Positives = absolute difference of the full overlap in the reference and the partial overlap in the query only
+            # Unknown Positives = absolute difference of the full overlap in the reference and the partial overlap
+            # in the query only
             unknown_length = abs(overlap_reference_length - overlap_query_only_length)
 
             # False Positives = match - (True Positives + Unknown Positives)
@@ -702,7 +689,8 @@ def main():
             convert_segment_ranges(annotations)
         except:
             print(
-                'The matches or the annotations not contain segment ranges, matching seconds evaluation is not possible!',
+                'The matches or the annotations not contain segment ranges, '
+                'matching seconds evaluation is not possible!',
                 file=sys.stderr)
             return
 
