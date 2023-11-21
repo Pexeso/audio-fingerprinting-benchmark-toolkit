@@ -36,7 +36,8 @@ def main():
     args = parser.parse_args()
 
     # set of allowed licenses
-    licenses = {'by-sa', 'by', 'cc-zero', 'publicdomain', 'http://artlibre.org/licence/lal/en',
+    licenses = {'by-sa', 'by', 'cc-zero', 'publicdomain',
+                'http://artlibre.org/licence/lal/en',
                 'http://creativecommons.org/licenses/sampling+/1.0/'}
 
     output_data = []
