@@ -53,7 +53,8 @@ def load_matches(fn):
     Load the matches form the file.
 
     Returns:
-        (dict mapping reference ID to a set of matching query IDs, dict of counts of matching query IDs for each reference ID)
+        (dict mapping reference ID to a set of matching query IDs, dict of counts of matching query IDs
+        for each reference ID)
     """
     matches = collections.defaultdict(set)
     counts = collections.Counter()

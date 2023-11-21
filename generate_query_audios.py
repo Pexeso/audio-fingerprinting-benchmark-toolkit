@@ -87,8 +87,6 @@ class QueryGenerator:
 
     def __init__(self, query_dir, tmp_dir, num_threads):
         """
-        Constructor.
-
         Parameters:
             query_dir: Directory for generated queries
             tmp_dir: Directory for temporary files
@@ -107,30 +105,27 @@ class QueryGenerator:
 
         self._noise_samples = glob.glob('noise/*.wav')
 
-
     def create_threads(self):
         """
         Create worker threads.
         """
         self._queue = queue.Queue()
-        self._threads = [threading.Thread(target=self.__worker) for i in range(self._num_threads)]
+        self._threads = [threading.Thread(target=self.__worker) for _ in range(self._num_threads)]
         for thread in self._threads:
             thread.start()
-
 
     def join_threads(self):
         """
         Join the worker threads.
         """
         if self._threads:
-            for thread in self._threads:
+            for _ in self._threads:
                 self._queue.put(None)
             for thread in self._threads:
                 thread.join()
 
             self._queue = None
             self._threads = []
-
 
     def __worker(self):
         """
@@ -142,7 +137,6 @@ class QueryGenerator:
             except BaseException as e:
                 self._error_in_thread = e
             self._queue.task_done()
-
 
     def _init_difficulty(self, difficulty):
         self._merge_choices = []
@@ -189,7 +183,6 @@ class QueryGenerator:
 
         self._modification_choices += [None] * (15 - len(self._modification_choices))
 
-
     def _get_random_tempo_or_pitch(self):
         """
         Get random tempo or pitch for rubberband FFmpeg filter.
@@ -201,7 +194,6 @@ class QueryGenerator:
             value = 1 / (1 - value)
 
         return value
-
 
     def _get_random_modification(self):
         """
@@ -241,7 +233,6 @@ class QueryGenerator:
 
         return modification
 
-
     def _get_random_noise(self):
         """
         Get a random noise together with its parameters, or None.
@@ -276,7 +267,6 @@ class QueryGenerator:
                      }
 
         return noise
-
 
     def _create_chunk(self, chunk, codec, sample_rate, query_index):
         """
@@ -373,7 +363,6 @@ class QueryGenerator:
         if duration:
             chunk[FIELD_CHUNK_QUERY_DURATION] = duration
 
-
     def _create_query(self, query_id, chunks, codec, sample_rate):
         """
         Create the query from the chunks.
@@ -429,7 +418,6 @@ class QueryGenerator:
         for chunk in chunks:
             os.remove(chunk[FIELD_CHUNK_FILE])
 
-
     def _add_query_annotations(self, query_id, chunks):
         """
         Add the annotations for the chunks of the query.
@@ -473,7 +461,6 @@ class QueryGenerator:
             merge_duration = chunk.get(FIELD_CHUNK_MERGE_NEXT_DURATION, 0)
             query_begin = query_end - merge_duration
 
-
     def load_track_list(self, fn):
         """
         Load the track list from the file.
@@ -485,13 +472,11 @@ class QueryGenerator:
                 if row[FIELD_TRACK_DURATION] >= 10:
                     self._tracks[row[FIELD_TRACK_ID]] = row
 
-
     def have_tracks(self):
         """
         Return true if any tracks were loaded.
         """
         return len(self._tracks) > 0
-
 
     def generate_queries(self, difficulty, num_queries, seed, codec, sample_rate, dry_run):
         """
@@ -605,7 +590,6 @@ class QueryGenerator:
                 self._create_query(query_id, chunks, codec, sample_rate)
             self._add_query_annotations(query_id, chunks)
             query_index += 1
-
 
     def write_annotations(self, annotation_file):
         """

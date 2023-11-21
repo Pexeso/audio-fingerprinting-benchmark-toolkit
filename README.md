@@ -59,8 +59,8 @@ The contents of each of these archives:
 
 The **difficulty** level influences which audio distortions may be used in the queries:
 - **easy**: high-pass, low-pass, changes in pitch and/or tempo mostly <= 6%, rarely > 10%, chunks are just concatenated, noise with Signal-to-Noise-Ratio (SNR) >= +10 dB
-- **medium**: all of above, echo, changes in pitch and/or tempo mostly <= 18%, rarely > 30%, chunks merged using overlap or fade in/fade out, noise with SNR >= +5 dB
-- **hard**: all of above, reverb, changes in pitch and/or tempo mostly <= 37%, rarely > 62%, noise with SNR >= +0 dB
+- **medium**: all of the above, echo, changes in pitch and/or tempo mostly <= 18%, rarely > 30%, chunks merged using overlap or fade in/fade out, noise with SNR >= +5 dB
+- **hard**: all of the above, reverb, changes in pitch and/or tempo mostly <= 37%, rarely > 62%, noise with SNR >= +0 dB
 
 
 ### Usage
